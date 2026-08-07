@@ -12,10 +12,12 @@ define('NOOR', true);
 
 $root = dirname(__DIR__);
 
-require $root . '/src/Support.php';
-require $root . '/src/Http.php';
-require $root . '/src/Services.php';
-require $root . '/src/Calculators.php';
+// require_once, so the site is unharmed if a Composer autoloader has already
+// pulled these in — the helpers are plain functions and cannot be redeclared.
+require_once $root . '/src/Support.php';
+require_once $root . '/src/Http.php';
+require_once $root . '/src/Services.php';
+require_once $root . '/src/Calculators.php';
 
 date_default_timezone_set((string) config('app.timezone', 'UTC'));
 

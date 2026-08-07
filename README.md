@@ -62,6 +62,14 @@ The `storage/cache` directory should be writable by the web server. If it is
 not, the site falls back to the system temp directory rather than losing
 caching.
 
+### Composer
+
+The site has no dependencies, but a `composer.json` ships anyway because most
+panels run `composer install` as a deploy step and abort when the file is
+missing. Running it is harmless — it installs nothing and writes an autoloader
+the site does not need. The front controller loads its own helpers with
+`require_once`, so an autoloader in play changes nothing.
+
 ## Configuration
 
 `config/config.php` holds the defaults — app name, default city, calculation
