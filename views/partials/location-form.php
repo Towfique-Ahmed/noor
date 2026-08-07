@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /**
  * City / method picker reused by the prayer time and calendar pages.
  *

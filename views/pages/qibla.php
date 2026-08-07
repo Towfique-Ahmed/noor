@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Qibla bearing from coordinates, with a live compass in the browser. */
 
 $hasCoords = input('lat') !== '' && input('lng') !== '';

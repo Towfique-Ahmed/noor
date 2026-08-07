@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Al-Asma ul-Husna — the 99 names, with meanings. */
 
 $names = dataset('names');

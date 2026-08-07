@@ -1,0 +1,31 @@
+{
+    "name": "towfique-ahmed/noor",
+    "description": "An Islamic resources website: prayer times, Qur'an reading, Qibla direction, Zakat and Fitrah calculators, hadith and more.",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["islam", "prayer-times", "quran", "qibla", "zakat", "hadith", "php"],
+    "homepage": "https://github.com/Towfique-Ahmed/noor",
+    "require": {
+        "php": ">=8.1",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "ext-curl": "Used for the AlAdhan and AlQuran Cloud requests; the site falls back to file_get_contents without it."
+    },
+    "autoload": {
+        "files": [
+            "src/Support.php",
+            "src/Http.php",
+            "src/Services.php",
+            "src/Calculators.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "serve": "php -S localhost:8000 -t public",
+        "lint": "find config data public src views -name '*.php' -print0 | xargs -0 -n1 php -l"
+    }
+}

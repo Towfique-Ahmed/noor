@@ -41,9 +41,34 @@ php -S localhost:8000 -t public
 
 Then open <http://localhost:8000>.
 
-On a normal web server, point the document root at `public/`. The bundled
-`public/.htaccess` routes everything to the front controller and sets a few
-security headers; on nginx, send unmatched requests to `public/index.php`.
+## Deploying
+
+**Point the site's web root at `public/`.** That is the intended setup and it
+keeps `config/`, `src/`, `views/` and `storage/` outside the served tree
+entirely. On xCloud, Ploi, RunCloud, cPanel or Plesk, set the web root to
+`/public` in the site settings.
+
+If the web root stays at the repository root, the site still works: the root
+`index.php` bootstrap forwards to the front controller, and the root
+`.htaccess` handles Apache. **A panel that serves the repository root with no
+index file is what produces `403 Forbidden` from nginx** — the bootstrap fixes
+that, but setting the web root to `public/` is still better.
+
+nginx does not read `.htaccess`, so on nginx add the rules from
+[`deploy/nginx.conf`](deploy/nginx.conf) to the site's custom configuration.
+That file covers both layouts.
+
+The `storage/cache` directory should be writable by the web server. If it is
+not, the site falls back to the system temp directory rather than losing
+caching.
+
+### Composer
+
+The site has no dependencies, but a `composer.json` ships anyway because most
+panels run `composer install` as a deploy step and abort when the file is
+missing. Running it is harmless — it installs nothing and writes an autoloader
+the site does not need. The front controller loads its own helpers with
+`require_once`, so an autoloader in play changes nothing.
 
 ## Configuration
 
@@ -64,8 +89,10 @@ return [
 ## Layout
 
 ```
+index.php   bootstrap for hosts that serve the repository root
 config/     configuration, plus your git-ignored local.php
 data/       bundled JSON: hadith, duas, the 99 names, verses
+deploy/     sample nginx configuration
 public/     document root — front controller, CSS, JS, .htaccess
 src/        Support.php, Http.php, Services.php, Calculators.php
 storage/    on-disk response cache

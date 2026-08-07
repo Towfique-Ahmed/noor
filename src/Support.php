@@ -56,14 +56,20 @@ function url(string $page = 'home', array $query = []): string
 
 /**
  * Asset URL helper with a cache-busting stamp.
+ *
+ * When the host serves the repository root instead of public/, the root
+ * bootstrap defines NOOR_PUBLIC_PREFIX so assets still resolve.
  */
 function asset(string $path): string
 {
-    $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/\\');
-    $file = __DIR__ . '/../public/' . ltrim($path, '/');
+    $base   = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/\\');
+    $prefix = defined('NOOR_PUBLIC_PREFIX') ? NOOR_PUBLIC_PREFIX : '';
+    $path   = ltrim($path, '/');
+
+    $file  = dirname(__DIR__) . '/public/' . $path;
     $stamp = is_file($file) ? (string) filemtime($file) : '1';
 
-    return $base . '/' . ltrim($path, '/') . '?v=' . $stamp;
+    return $base . '/' . $prefix . $path . '?v=' . $stamp;
 }
 
 /**

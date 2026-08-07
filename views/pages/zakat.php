@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Zakat calculator: assets minus debts, checked against nisab. */
 
 $currency    = input('currency', 'USD');

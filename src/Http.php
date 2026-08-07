@@ -96,11 +96,40 @@ function httpGet(string $url): array
 }
 
 /**
+ * The directory cache entries are written to.
+ *
+ * Shared hosts sometimes leave the deployed tree read-only, which would mean
+ * hitting the APIs on every page load. Fall back to the system temp directory
+ * so caching keeps working.
+ */
+function cacheDir(): string
+{
+    static $dir = null;
+    if ($dir !== null) {
+        return $dir;
+    }
+
+    $configured = rtrim((string) config('cache.dir'), '/');
+    if (is_dir($configured) || @mkdir($configured, 0775, true) || is_dir($configured)) {
+        if (is_writable($configured)) {
+            return $dir = $configured;
+        }
+    }
+
+    $fallback = rtrim(sys_get_temp_dir(), '/') . '/noor-cache';
+    if (!is_dir($fallback)) {
+        @mkdir($fallback, 0775, true);
+    }
+
+    return $dir = $fallback;
+}
+
+/**
  * Absolute path of the cache file for a key.
  */
 function cachePath(string $key): string
 {
-    return rtrim((string) config('cache.dir'), '/') . '/' . sha1($key) . '.json';
+    return cacheDir() . '/' . sha1($key) . '.json';
 }
 
 /**
@@ -128,8 +157,7 @@ function cacheGet(string $key, int $ttl): ?array
  */
 function cachePut(string $key, array $value): void
 {
-    $dir = rtrim((string) config('cache.dir'), '/');
-    if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+    if (!is_writable(cacheDir())) {
         return;
     }
 

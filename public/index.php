@@ -6,12 +6,18 @@
 
 declare(strict_types=1);
 
+// Marks a legitimate request. View files refuse to run without it, so they
+// cannot be reached directly when the host serves the repository root.
+define('NOOR', true);
+
 $root = dirname(__DIR__);
 
-require $root . '/src/Support.php';
-require $root . '/src/Http.php';
-require $root . '/src/Services.php';
-require $root . '/src/Calculators.php';
+// require_once, so the site is unharmed if a Composer autoloader has already
+// pulled these in — the helpers are plain functions and cannot be redeclared.
+require_once $root . '/src/Support.php';
+require_once $root . '/src/Http.php';
+require_once $root . '/src/Services.php';
+require_once $root . '/src/Calculators.php';
 
 date_default_timezone_set((string) config('app.timezone', 'UTC'));
 
