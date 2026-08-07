@@ -1,0 +1,15 @@
+# Runtime cache written by the app
+/storage/cache/*
+!/storage/cache/.gitkeep
+
+# Local environment overrides
+/config/local.php
+
+# Editor / OS noise
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Dependencies (not used today, ignored so a stray install cannot be committed)
+/vendor/
