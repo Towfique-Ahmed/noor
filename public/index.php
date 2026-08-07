@@ -6,6 +6,10 @@
 
 declare(strict_types=1);
 
+// Marks a legitimate request. View files refuse to run without it, so they
+// cannot be reached directly when the host serves the repository root.
+define('NOOR', true);
+
 $root = dirname(__DIR__);
 
 require $root . '/src/Support.php';

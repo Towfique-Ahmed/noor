@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** About page: what the site is, where the data comes from, how to run it. */
 
 $heading = 'About Noor';

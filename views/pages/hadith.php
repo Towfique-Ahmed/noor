@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Searchable hadith collection, served from the bundled dataset. */
 
 $query      = input('q');

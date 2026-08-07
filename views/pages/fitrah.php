@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Sadaqat al-Fitr calculator. */
 
 $people     = (int) input('people', '1');

@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Daily prayer timings with a city picker and a monthly table. */
 
 $location = currentLocation();

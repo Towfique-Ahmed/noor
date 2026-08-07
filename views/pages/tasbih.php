@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Digital dhikr counter. The count is kept in the browser. */
 
 $dhikr = [

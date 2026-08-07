@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Everyday supplications, grouped by occasion. */
 
 $duas   = dataset('duas');

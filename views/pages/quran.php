@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Qur'an index, and the reader when a surah is selected. */
 
 $surahNumber = (int) input('surah', '0');

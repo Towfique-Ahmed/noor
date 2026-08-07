@@ -1,0 +1,30 @@
+# Apache rules for hosts that serve the repository root instead of public/.
+#
+# Pointing the web root at public/ is the better setup and makes this file
+# unnecessary. It is here so a default deployment still works.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Serve the real files under public/ (CSS, JS) without exposing the path.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Everything else goes to the root bootstrap.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Keep the application internals out of the browser.
+RedirectMatch 404 ^/(config|src|views|storage)(/|$)
+RedirectMatch 404 /\.git(/|$)
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

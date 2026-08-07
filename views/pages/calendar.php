@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Hijri date for today plus the Islamic months and notable days. */
 
 $hijri  = hijriDate();

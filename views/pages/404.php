@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Not found. */
 $heading = 'Page not found';
 $sub     = 'That page does not exist here.';

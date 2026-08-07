@@ -1,4 +1,5 @@
 <?php
+defined('NOOR') || http_response_code(404) && exit;
 /** Landing page: today's timings at a glance plus links into every tool. */
 
 $location = currentLocation();
