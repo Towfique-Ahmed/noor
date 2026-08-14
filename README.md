@@ -81,16 +81,22 @@ the site does not need. The front controller loads its own helpers with
 file to regenerate when pages change. The sitemap covers every page, all 114
 surah URLs, each dua category and each hadith collection.
 
-**Set `app.url` before submitting the sitemap.** Without it the URLs are derived
-from the incoming request, which is wrong behind a proxy or CDN — and Search
-Console rejects a sitemap whose URLs are on a different host:
+The canonical origin is committed as `app.url` in `config/config.php`, so a
+fresh deploy advertises the right domain with no server-side file to create.
+Deriving it from the request is unreliable behind a proxy or CDN, and Search
+Console rejects a sitemap whose URLs sit on a different host.
 
-```php
-<?php // config/local.php
-return ['app' => ['url' => 'https://noor.towfique.com']];
-```
+Override it per environment, in order of precedence:
 
-Then in Search Console, add the property, and submit `sitemap.xml` under
+1. the `NOOR_APP_URL` environment variable — the easiest knob on a hosting panel
+2. `app.url` in `config/local.php`
+3. the committed default in `config/config.php`
+
+Requests arriving on a local or private hostname (`localhost`, `*.test`,
+`10.x`, `192.168.x`, …) ignore all of that and describe themselves instead, so
+a development server never claims the live domain.
+
+To submit: in Search Console, add the property, then submit `sitemap.xml` under
 **Indexing → Sitemaps**.
 
 Every page also carries a canonical link, Open Graph and Twitter card tags, and

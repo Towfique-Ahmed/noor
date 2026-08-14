@@ -17,11 +17,15 @@ $config = [
         'timezone'    => 'UTC',
         'debug'       => false,
 
-        // Canonical origin, e.g. 'https://noor.towfique.com'. Set this in
-        // config/local.php on production: it is what sitemap.xml, robots.txt
-        // and the canonical tags advertise. Left empty, it is derived from the
-        // request, which is fine locally but unreliable behind a proxy or CDN.
-        'url'         => '',
+        // Canonical origin — what sitemap.xml, robots.txt and the canonical
+        // tags advertise. Deriving it from the request is unreliable behind a
+        // proxy or CDN, and Search Console rejects a sitemap whose URLs sit on
+        // a different host, so the production domain is committed here.
+        //
+        // Override per environment with the NOOR_APP_URL environment variable,
+        // or in config/local.php. Requests arriving on a local hostname ignore
+        // this value and use the request instead, so development stays honest.
+        'url'         => getenv('NOOR_APP_URL') ?: 'https://noor.towfique.com',
     ],
 
     // Remote services. Both are free and need no API key.
