@@ -44,6 +44,8 @@ $config = [
         'method'      => 1,   // University of Islamic Sciences, Karachi
         'school'      => 1,   // Hanafi Asr
         'translation' => 'en.sahih',
+        'tafsir'      => 'ar.muyassar',
+        'reciter'     => 'ar.alafasy',
     ],
 
     // Nisab thresholds in grams, used by the Zakat calculator.

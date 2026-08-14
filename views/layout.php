@@ -11,6 +11,7 @@ $navigation = [
     'home'         => 'Home',
     'prayer-times' => 'Prayer Times',
     'quran'        => 'Qur\'an',
+    'quran-search' => 'Search',
     'qibla'        => 'Qibla',
     'zakat'        => 'Zakat',
     'fitrah'       => 'Fitrah',
@@ -19,6 +20,7 @@ $navigation = [
     'names'        => '99 Names',
     'calendar'     => 'Calendar',
     'tasbih'       => 'Tasbih',
+    'bookmarks'    => 'Bookmarks',
 ];
 ?>
 <!DOCTYPE html>
@@ -30,9 +32,13 @@ $navigation = [
 <meta name="description" content="<?= e(config('app.description')) ?>">
 <meta name="theme-color" content="#0f5132">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127772;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap">
 <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>">
 </head>
 <body data-page="<?= e($currentPage) ?>">
+<div class="page-glow" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">

@@ -11,8 +11,9 @@ require dirname(__DIR__) . '/partials/page-header.php';
   <article class="card">
     <h2>What is here</h2>
     <ul class="notes">
-      <li><strong>Prayer times</strong> for any city, with fifteen calculation methods and both Asr opinions.</li>
-      <li><strong>The Qur'an</strong> — all 114 surahs in Uthmani script with translations in ten languages.</li>
+      <li><strong>Prayer times</strong> for any city, with a live countdown to the next prayer, fifteen calculation methods and both Asr opinions.</li>
+      <li><strong>The Qur'an</strong> — all 114 surahs in Uthmani script with translations in ten languages, tafsir from eight classical commentaries, and verse-by-verse recitation from ten reciters.</li>
+      <li><strong>Search</strong> across any translation, with bookmarks and a link back to where you stopped reading.</li>
       <li><strong>Qibla direction</strong> from your coordinates, with a compass that follows your phone.</li>
       <li><strong>Zakat calculator</strong> covering cash, gold, silver, business stock and debts against nisab.</li>
       <li><strong>Fitrah calculator</strong> for Sadaqat al-Fitr, in weight or in money.</li>
@@ -24,7 +25,7 @@ require dirname(__DIR__) . '/partials/page-header.php';
     <h2>Where the data comes from</h2>
     <ul class="notes">
       <li>Prayer times, Hijri dates and the Qibla bearing: the <strong>AlAdhan API</strong>.</li>
-      <li>Qur'an text and translations: <strong>AlQuran Cloud</strong>.</li>
+      <li>Qur'an text, translations and tafsir: <strong>AlQuran Cloud</strong>; recitation audio from the islamic.network CDN.</li>
       <li>Hadith, duas and the 99 names ship with the site as JSON files.</li>
       <li>Responses are cached on disk, so pages stay fast and the APIs are not hammered.</li>
     </ul>

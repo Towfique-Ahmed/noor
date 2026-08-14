@@ -46,6 +46,22 @@ require dirname(__DIR__) . '/partials/location-form.php';
       <?php endif; ?>
     </header>
 
+    <div class="countdown" data-countdown>
+      <svg class="countdown-ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+        <circle class="ring-fill" cx="60" cy="60" r="52" data-ring></circle>
+      </svg>
+      <div class="countdown-text">
+        <span class="countdown-label" data-countdown-name>Next prayer</span>
+        <strong class="countdown-value" data-countdown-value>—</strong>
+        <span class="muted" data-countdown-at></span>
+      </div>
+    </div>
+
+    <p class="field-action countdown-actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-notify-toggle>Remind me at the next prayer</button>
+    </p>
+
     <ul class="prayer-grid" data-next-prayer>
       <?php foreach ($prayers as $key => $label): ?>
         <?php if (empty($timings[$key])) { continue; } ?>

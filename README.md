@@ -1,8 +1,8 @@
 # Noor
 
-An Islamic resources website built with plain PHP — prayer times, Qur'an
-reading, Qibla direction, Zakat and Fitrah calculators, hadith, duas, the 99
-names, the Hijri calendar and a tasbih counter.
+An Islamic resources website built with plain PHP — prayer times, Qur'an reading
+with tafsir and recitation, Qibla direction, Zakat and Fitrah calculators,
+hadith, duas, the 99 names, the Hijri calendar and a tasbih counter.
 
 No framework, no database, no build step, no Composer packages.
 
@@ -11,8 +11,10 @@ No framework, no database, no build step, no Composer packages.
 | Page | What it does |
 | --- | --- |
 | **Home** | Today's timings at a glance, the next prayer highlighted, and a verse of the day. |
-| **Prayer Times** | Daily timings for any city plus a full monthly timetable. Fifteen calculation methods and both Asr opinions. Your city is remembered in a cookie. |
-| **Qur'an** | All 114 surahs in Uthmani script beside a translation, in ten languages. Per-ayah anchors. |
+| **Prayer Times** | Daily timings for any city plus a full monthly timetable, with a **live countdown ring** to the next prayer and an optional browser reminder. Fifteen calculation methods and both Asr opinions. Your city is remembered in a cookie. |
+| **Qur'an** | All 114 surahs in Uthmani script beside a translation in ten languages, with **tafsir** from eight classical commentaries and **verse-by-verse recitation** from ten reciters. Browse by surah or by juz; bookmark, copy and link any ayah. |
+| **Qur'an search** | Full-text search across any translation, with the matched term highlighted and a jump straight into the reader. |
+| **Bookmarks** | Starred ayahs and a "continue reading" link back to where you stopped. Saved in the browser. |
 | **Qibla** | Bearing to the Kaaba from any coordinates, with distance, a 16-point compass label, geolocation and a needle that follows the device compass. |
 | **Zakat** | Cash, gold, silver, business stock, investments and receivables, less liabilities, checked against gold or silver nisab at 2.5%. |
 | **Fitrah** | Sadaqat al-Fitr per person by staple food, given in weight or in money. |
@@ -22,8 +24,9 @@ No framework, no database, no build step, no Composer packages.
 | **Calendar** | Today's Hijri date, a Gregorian → Hijri converter, the twelve months and the days to remember. |
 | **Tasbih** | A dhikr counter that saves your count and rounds in the browser. |
 
-The site works with JavaScript disabled. The next-prayer highlight, compass,
-theme toggle, list filters and tasbih counter are progressive enhancements.
+The site works with JavaScript disabled. The recitation player, countdown ring,
+bookmarks, tafsir toggles, compass, theme toggle, list filters and tasbih counter
+are progressive enhancements layered on pages that already render server-side.
 
 ## Requirements
 
@@ -105,10 +108,15 @@ Requests enter `public/index.php`, which resolves a slug to a file in
 ## Data sources
 
 - Prayer times, Hijri dates and the Qibla bearing: the [AlAdhan API](https://aladhan.com/prayer-times-api)
-- Qur'an text and translations: [AlQuran Cloud](https://alquran.cloud/api)
+- Qur'an text, translations, tafsir and the edition lists: [AlQuran Cloud](https://alquran.cloud/api)
+- Recitation audio: the [islamic.network CDN](https://cdn.islamic.network) that accompanies it
 - Hadith, duas, the 99 names and the verses ship as JSON in `data/`
 
-Both APIs are free and need no key. Responses are cached on disk — six hours
+The tafsir and reciter menus are built from the API's own edition list, so the
+identifiers are always ones it actually serves; a bundled fallback keeps the menus
+usable when the API is unreachable. Both APIs are free and need no key.
+
+Responses are cached on disk — six hours
 for prayer times, a day for calendar data, a month for Qur'an text and Qibla
 bearings. If an API is unreachable the site serves a stale cached copy when it
 has one, and otherwise shows a notice rather than failing.

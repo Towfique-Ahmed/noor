@@ -145,6 +145,171 @@ function quranTranslations(): array
 }
 
 /**
+ * One surah with any combination of editions (Arabic, translation, tafsir).
+ *
+ * @param array<int, string> $editions Edition identifiers, in display order.
+ */
+function quranEditions(int $number, array $editions): array
+{
+    $editions = array_values(array_filter(array_unique($editions)));
+    if ($editions === []) {
+        return ['ok' => false, 'data' => [], 'error' => 'No edition was requested.', 'cached' => false];
+    }
+
+    $url = config('api.alquran') . '/surah/' . $number . '/editions/' . rawurlencode(implode(',', $editions));
+
+    return fetchJson($url, (int) config('cache.ttl.quran'));
+}
+
+/**
+ * Tafsir editions offered on the reader.
+ *
+ * The list is pulled from the API so the identifiers are always the ones it
+ * actually serves. The bundled fallback keeps the picker usable when the API
+ * cannot be reached.
+ *
+ * @return array<string, string> identifier => label
+ */
+function tafsirEditions(): array
+{
+    $fallback = [
+        'ar.muyassar'  => 'Arabic — al-Muyassar',
+        'ar.jalalayn'  => 'Arabic — al-Jalalayn',
+        'ar.qurtubi'   => 'Arabic — al-Qurtubi',
+        'ar.tabari'    => 'Arabic — al-Tabari',
+        'ar.baghawi'   => 'Arabic — al-Baghawi',
+        'ar.katheer'   => 'Arabic — Ibn Kathir',
+        'ar.waseet'    => 'Arabic — al-Waseet',
+        'ar.miqbas'    => 'Arabic — Tanwir al-Miqbas',
+    ];
+
+    $response = fetchJson(config('api.alquran') . '/edition?format=text&type=tafsir', (int) config('cache.ttl.quran'));
+    if (!$response['ok'] || empty($response['data']['data'])) {
+        return $fallback;
+    }
+
+    $editions = [];
+    foreach ($response['data']['data'] as $edition) {
+        if (empty($edition['identifier'])) {
+            continue;
+        }
+        $editions[(string) $edition['identifier']] = editionLabel($edition);
+    }
+
+    return $editions === [] ? $fallback : $editions;
+}
+
+/**
+ * Verse-by-verse reciters offered by the audio player.
+ *
+ * @return array<string, string> identifier => label
+ */
+function reciters(): array
+{
+    $fallback = [
+        'ar.alafasy'             => 'Mishary Rashid Alafasy',
+        'ar.abdulbasitmurattal'  => 'Abdul Basit — Murattal',
+        'ar.husary'              => 'Mahmoud Khalil al-Husary',
+        'ar.minshawi'            => 'Mohamed Siddiq al-Minshawi',
+        'ar.mahermuaiqly'        => 'Maher al-Muaiqly',
+        'ar.abdurrahmaansudais'  => 'Abdur-Rahman as-Sudais',
+        'ar.saoodshuraym'        => 'Saood ash-Shuraym',
+        'ar.hudhaify'            => 'Ali al-Hudhaify',
+        'ar.ahmedajamy'          => 'Ahmed al-Ajamy',
+        'ar.shaatree'            => 'Abu Bakr ash-Shaatree',
+    ];
+
+    $response = fetchJson(config('api.alquran') . '/edition?format=audio&type=versebyverse', (int) config('cache.ttl.quran'));
+    if (!$response['ok'] || empty($response['data']['data'])) {
+        return $fallback;
+    }
+
+    $found = [];
+    foreach ($response['data']['data'] as $edition) {
+        if (empty($edition['identifier'])) {
+            continue;
+        }
+        $found[(string) $edition['identifier']] = (string) ($edition['englishName'] ?? $edition['name'] ?? $edition['identifier']);
+    }
+
+    return $found === [] ? $fallback : $found;
+}
+
+/**
+ * Readable label for an edition record from the API.
+ */
+function editionLabel(array $edition): string
+{
+    $name     = (string) ($edition['englishName'] ?? $edition['name'] ?? $edition['identifier'] ?? '');
+    $language = strtoupper((string) ($edition['language'] ?? ''));
+
+    return $language !== '' ? $language . ' — ' . $name : $name;
+}
+
+/**
+ * Audio file for a single ayah, by its global number (1–6236).
+ */
+function ayahAudioUrl(string $reciter, int $globalAyah, int $bitrate = 128): string
+{
+    return 'https://cdn.islamic.network/quran/audio/' . $bitrate . '/'
+        . rawurlencode($reciter) . '/' . $globalAyah . '.mp3';
+}
+
+/**
+ * Audio file for a whole surah.
+ */
+function surahAudioUrl(string $reciter, int $surah, int $bitrate = 128): string
+{
+    return 'https://cdn.islamic.network/quran/audio-surah/' . $bitrate . '/'
+        . rawurlencode($reciter) . '/' . $surah . '.mp3';
+}
+
+/**
+ * Full-text search across a translation edition.
+ */
+function quranSearch(string $keyword, string $edition): array
+{
+    $keyword = trim($keyword);
+    if ($keyword === '') {
+        return ['ok' => true, 'data' => ['data' => ['count' => 0, 'matches' => []]], 'error' => null, 'cached' => false];
+    }
+
+    $url = config('api.alquran') . '/search/' . rawurlencode($keyword) . '/all/' . rawurlencode($edition);
+
+    return fetchJson($url, (int) config('cache.ttl.quran'));
+}
+
+/**
+ * The thirty ajza, with the surah and ayah each one opens at.
+ *
+ * @return array<int, array{juz: int, surah: int, ayah: int, name: string}>
+ */
+function juzIndex(): array
+{
+    $starts = [
+        [1, 1, 'Alif Lam Mim'],           [2, 142, 'Sayaqul'],          [2, 253, 'Tilkar-Rusul'],
+        [3, 92, 'Lan Tanalu'],            [4, 24, 'Wal-Muhsanat'],      [4, 148, 'La Yuhibbullah'],
+        [5, 82, 'Wa Idha Sami\'u'],       [6, 111, 'Wa Lau Annana'],    [7, 88, 'Qalal-Mala'],
+        [8, 41, 'Wa\'lamu'],              [9, 93, 'Ya\'tadhiruna'],     [11, 6, 'Wa Ma Min Dabbah'],
+        [12, 53, 'Wa Ma Ubarri\'u'],      [15, 1, 'Rubama'],            [17, 1, 'Subhanalladhi'],
+        [18, 75, 'Qala Alam'],            [21, 1, 'Iqtaraba'],          [23, 1, 'Qad Aflaha'],
+        [25, 21, 'Wa Qalalladhina'],      [27, 56, 'Amman Khalaqa'],    [29, 46, 'Utlu Ma Uhiya'],
+        [33, 31, 'Wa Manyaqnut'],         [36, 28, 'Wa Mali'],          [39, 32, 'Faman Azlam'],
+        [41, 47, 'Ilaihi Yuraddu'],       [46, 1, 'Ha Mim'],            [51, 31, 'Qala Fama Khatbukum'],
+        [58, 1, 'Qad Sami Allah'],        [67, 1, 'Tabarakalladhi'],    [78, 1, 'Amma Yatasa\'alun'],
+    ];
+
+    $juz = [];
+    $number = 1;
+    foreach ($starts as $start) {
+        $juz[] = ['juz' => $number, 'surah' => $start[0], 'ayah' => $start[1], 'name' => $start[2]];
+        $number++;
+    }
+
+    return $juz;
+}
+
+/**
  * Search the bundled hadith collection.
  *
  * @return array<int, array<string, string>>
