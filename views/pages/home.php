@@ -11,8 +11,10 @@ $dateBits = $times['ok'] ? ($times['data']['data']['date'] ?? []) : [];
 $prayers = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
 
 $tools = [
-    ['prayer-times', '&#128337;', 'Prayer Times', 'Daily and monthly timings for any city, with your preferred calculation method.'],
-    ['quran',        '&#128214;', 'Read the Qur\'an', 'All 114 surahs in Uthmani script with translations in ten languages.'],
+    ['prayer-times', '&#128337;', 'Prayer Times', 'Daily and monthly timings for any city, with a live countdown to the next prayer.'],
+    ['quran',        '&#128214;', 'Read the Qur\'an', 'All 114 surahs with translation, tafsir and verse-by-verse recitation.'],
+    ['quran-search', '&#128269;', 'Search the Qur\'an', 'Find every ayah that mentions a word or phrase, in your chosen translation.'],
+    ['bookmarks',    '&#11088;',  'Bookmarks', 'The ayahs you starred, and a link back to where you stopped reading.'],
     ['qibla',        '&#129517;', 'Qibla Direction', 'Find the bearing to the Kaaba from anywhere, with a live compass.'],
     ['zakat',        '&#128176;', 'Zakat Calculator', 'Add up your assets, subtract debts and see the 2.5% due against nisab.'],
     ['fitrah',       '&#127806;', 'Fitrah Calculator', 'Sadaqat al-Fitr per person by staple food, in weight and money.'],

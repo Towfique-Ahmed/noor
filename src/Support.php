@@ -174,6 +174,24 @@ function calculationMethods(): array
 }
 
 /**
+ * Escape text, then wrap every occurrence of a search term in <mark>.
+ *
+ * The escaping happens first, so the returned string is safe to echo raw.
+ */
+function highlightTerm(string $text, string $term): string
+{
+    $escaped = e($text);
+    $term    = trim($term);
+    if ($term === '') {
+        return $escaped;
+    }
+
+    $pattern = '/(' . preg_quote(e($term), '/') . ')/iu';
+
+    return (string) preg_replace($pattern, '<mark>$1</mark>', $escaped);
+}
+
+/**
  * Load a bundled JSON dataset from /data.
  */
 function dataset(string $name): array
