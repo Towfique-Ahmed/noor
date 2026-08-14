@@ -18,12 +18,24 @@ require_once $root . '/src/Support.php';
 require_once $root . '/src/Http.php';
 require_once $root . '/src/Services.php';
 require_once $root . '/src/Calculators.php';
+require_once $root . '/src/Seo.php';
 
 date_default_timezone_set((string) config('app.timezone', 'UTC'));
 
 if (config('app.debug')) {
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
+}
+
+// Crawler files are served by path, so /sitemap.xml and /robots.txt work
+// whether or not a rewrite rule is in play.
+$path = strtolower(basename(parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: ''));
+
+if ($path === 'sitemap.xml' || input('page') === 'sitemap.xml') {
+    renderSitemap();
+}
+if ($path === 'robots.txt' || input('page') === 'robots.txt') {
+    renderRobots();
 }
 
 /** Pages the router will serve: slug => [file, title]. */
@@ -55,6 +67,19 @@ if (!isset($routes[$slug])) {
 
 $currentPage = $slug;
 $pageTitle   = $title;
+
+// Query parameters that genuinely change what a page shows. Anything else —
+// display preferences, tracking tags — collapses onto the canonical address.
+$canonicalParams = [
+    'quran'        => ['surah'],
+    'quran-search' => ['q'],
+    'duas'         => ['category'],
+    'hadith'       => ['collection', 'q'],
+];
+
+$canonical = $slug === '404'
+    ? absoluteUrl('home')
+    : canonicalUrl($slug, $canonicalParams[$slug] ?? []);
 
 // Render the page into a buffer first so a page can set $pageSubtitle or send
 // its own headers before the layout writes anything.

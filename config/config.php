@@ -16,6 +16,12 @@ $config = [
                        . 'Hijri calendar.',
         'timezone'    => 'UTC',
         'debug'       => false,
+
+        // Canonical origin, e.g. 'https://noor.towfique.com'. Set this in
+        // config/local.php on production: it is what sitemap.xml, robots.txt
+        // and the canonical tags advertise. Left empty, it is derived from the
+        // request, which is fine locally but unreliable behind a proxy or CDN.
+        'url'         => '',
     ],
 
     // Remote services. Both are free and need no API key.
