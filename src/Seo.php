@@ -6,6 +6,32 @@
 declare(strict_types=1);
 
 /**
+ * Is this request being served from a development hostname?
+ *
+ * The configured canonical origin is meant for production. On a local or
+ * staging hostname it would advertise the live domain from the wrong machine,
+ * so those requests fall back to describing themselves.
+ */
+function isLocalRequest(): bool
+{
+    $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
+    $host = (string) preg_replace('/:\d+$/', '', $host);
+
+    if ($host === '' || $host === 'localhost' || $host === '127.0.0.1' || $host === '::1' || $host === '[::1]') {
+        return true;
+    }
+
+    foreach (['.local', '.localhost', '.test', '.example'] as $suffix) {
+        if (str_ends_with($host, $suffix)) {
+            return true;
+        }
+    }
+
+    // Private ranges, so a LAN or container address never claims the domain.
+    return (bool) preg_match('/^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/', $host);
+}
+
+/**
  * Absolute base URL of the site, with a trailing slash.
  *
  * Set app.url in config/local.php on production — it is the only value that
@@ -14,7 +40,7 @@ declare(strict_types=1);
 function baseUrl(): string
 {
     $configured = trim((string) config('app.url', ''));
-    if ($configured !== '') {
+    if ($configured !== '' && !isLocalRequest()) {
         return rtrim($configured, '/') . '/';
     }
 
