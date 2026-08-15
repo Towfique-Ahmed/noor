@@ -23,7 +23,7 @@ No framework, no database, no build step, no Composer packages.
 | **99 Names** | Al-Asma ul-Husna with meanings, filterable. |
 | **Calendar** | Today's Hijri date, a Gregorian → Hijri converter, the twelve months and the days to remember. |
 | **Tasbih** | A dhikr counter that saves your count and rounds in the browser. |
-| `/sitemap.xml` | 142 URLs generated on request — every page, all 114 surahs, each dua category and hadith collection. Ready to submit to Google Search Console. |
+| `/sitemap.xml` | 142 clean URLs generated on request — every page, all 114 surahs, each dua category and hadith collection. Ready to submit to Google Search Console. |
 | `/robots.txt` | Allows everything except the personal bookmarks page, and points at the sitemap. |
 
 The site works with JavaScript disabled. The recitation player, countdown ring,
@@ -74,6 +74,28 @@ panels run `composer install` as a deploy step and abort when the file is
 missing. Running it is harmless — it installs nothing and writes an autoloader
 the site does not need. The front controller loads its own helpers with
 `require_once`, so an autoloader in play changes nothing.
+
+## URLs
+
+Pages are addressed by path, not by query string:
+
+```
+/                      /quran/al-baqarah      /duas/travel
+/prayer-times          /quran/search          /hadith/sahih-muslim
+/zakat  /fitrah        /qibla  /calendar      /names  /tasbih
+```
+
+Settings that only change how a page is displayed — translation, tafsir,
+reciter, city, calculation method, search term — stay in the query string,
+because they do not make a different document.
+
+Old `?page=…` addresses **301 to their clean equivalent**, as do `/quran/18`
+and `/quran?surah=18` (both land on `/quran/al-kahf`), so nothing that was
+already linked or indexed breaks.
+
+This needs unmatched requests to reach the front controller. The bundled
+`.htaccess` does that on Apache; on nginx it is the `try_files` line in
+[`deploy/nginx.conf`](deploy/nginx.conf).
 
 ## Search engines
 
@@ -138,7 +160,7 @@ config/     configuration, plus your git-ignored local.php
 data/       bundled JSON: hadith, duas, the 99 names, verses, surah names
 deploy/     sample nginx configuration
 public/     document root — front controller, CSS, JS, .htaccess
-src/        Support.php, Http.php, Services.php, Calculators.php, Seo.php
+src/        Support.php, Http.php, Services.php, Calculators.php, Router.php, Seo.php
 storage/    on-disk response cache
 views/      layout, partials and one file per page
 ```

@@ -17,8 +17,7 @@ $sub     = 'Find every ayah that mentions a word or phrase, in your chosen trans
 require dirname(__DIR__) . '/partials/page-header.php';
 ?>
 
-<form class="card toolbar" method="get" action="<?= e(url('home')) ?>">
-  <input type="hidden" name="page" value="quran-search">
+<form class="card toolbar" method="get" action="<?= e(url('quran-search')) ?>">
   <div class="field">
     <label for="q">Word or phrase</label>
     <input id="q" name="q" type="search" value="<?= e($keyword) ?>" placeholder="mercy, patience, orphan…" autofocus>

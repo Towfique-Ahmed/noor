@@ -142,8 +142,7 @@ require dirname(__DIR__) . '/partials/page-header.php';
 ?>
 
 <div class="card reader-toolbar">
-  <form class="reader-controls" method="get" action="<?= e(url('home')) ?>">
-    <input type="hidden" name="page" value="quran">
+  <form class="reader-controls" method="get" action="<?= e(url('quran')) ?>">
 
     <div class="field">
       <label for="surah-select">Surah</label>

@@ -45,13 +45,11 @@ function e(mixed $value): string
 function url(string $page = 'home', array $query = []): string
 {
     $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/\\');
-    $path = $base . '/';
 
-    if ($page !== 'home') {
-        $query = ['page' => $page] + $query;
-    }
+    [$path, $rest] = routePath($page, $query);
+    $url = $base . '/' . $path;
 
-    return $query === [] ? $path : $path . '?' . http_build_query($query);
+    return $rest === [] ? $url : $url . '?' . http_build_query($rest);
 }
 
 /**
