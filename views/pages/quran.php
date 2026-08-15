@@ -24,6 +24,22 @@ if (!array_key_exists($reciter, $allReciters)) {
 $index = quranSurahs();
 $list  = $index['ok'] ? ($index['data']['data'] ?? []) : [];
 
+// If the API is unreachable, build the list from the bundled surah names. The
+// index is the only page that links to all 114 surah pages, so without this a
+// crawl during an outage would find no route to them at all.
+if ($list === []) {
+    foreach (dataset('surahs') as $surah) {
+        $list[] = [
+            'number'                 => $surah['number'],
+            'name'                   => '',
+            'englishName'            => $surah['name'],
+            'englishNameTranslation' => $surah['meaning'],
+            'numberOfAyahs'          => 0,
+            'revelationType'         => '',
+        ];
+    }
+}
+
 $carry = ['translation' => $translation, 'tafsir' => $tafsir, 'reciter' => $reciter];
 
 if ($surahNumber < 1 || $surahNumber > 114) {
@@ -34,9 +50,9 @@ if ($surahNumber < 1 || $surahNumber > 114) {
     ?>
 
     <?php if (!$index['ok']): ?>
-      <?php $message = 'The surah list could not be loaded. ' . ($index['error'] ?? ''); $type = 'error'; ?>
+      <?php $message = 'Ayah counts are unavailable right now, but every surah still opens.'; $type = 'warn'; ?>
       <?php require dirname(__DIR__) . '/partials/alert.php'; ?>
-    <?php else: ?>
+    <?php endif; ?>
 
       <div class="card toolbar quran-toolbar">
         <div class="field">
@@ -64,11 +80,15 @@ if ($surahNumber < 1 || $surahNumber > 114) {
                 <span class="surah-meta">
                   <strong><?= e($surah['englishName']) ?></strong>
                   <small><?= e($surah['englishNameTranslation']) ?></small>
-                  <small class="muted">
-                    <?= (int) $surah['numberOfAyahs'] ?> ayahs &middot; <?= e(ucfirst((string) $surah['revelationType'])) ?>
-                  </small>
+                  <?php if ((int) $surah['numberOfAyahs'] > 0): ?>
+                    <small class="muted">
+                      <?= (int) $surah['numberOfAyahs'] ?> ayahs &middot; <?= e(ucfirst((string) $surah['revelationType'])) ?>
+                    </small>
+                  <?php endif; ?>
                 </span>
-                <span class="surah-arabic" lang="ar"><?= e($surah['name']) ?></span>
+                <?php if ($surah['name'] !== ''): ?>
+                  <span class="surah-arabic" lang="ar"><?= e($surah['name']) ?></span>
+                <?php endif; ?>
               </a>
             </li>
           <?php endforeach; ?>
@@ -95,7 +115,6 @@ if ($surahNumber < 1 || $surahNumber > 114) {
       <p class="muted" data-last-read-note data-reader-url="<?= e(url('quran')) ?>" hidden>
         <a class="btn btn-ghost btn-sm" href="<?= e(url('quran')) ?>" data-last-read-link>Continue where you left off</a>
       </p>
-    <?php endif; ?>
 
     <?php
     return;

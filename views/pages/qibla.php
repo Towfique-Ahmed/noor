@@ -78,3 +78,18 @@ require dirname(__DIR__) . '/partials/page-header.php';
     </p>
   </div>
 </section>
+
+<?php
+$faqHeading = 'Qibla questions people ask';
+$faqs = [
+    ['How is the Qibla direction calculated?',
+     'It is the great-circle bearing from where you stand to the Kaaba in Makkah — the shortest path across the surface of the earth. That is why the direction on a flat map can look surprising from far away.'],
+    ['Why does my phone compass disagree slightly?',
+     'A phone compass reads magnetic north, which differs from true north by a few degrees in most places, and it drifts near metal, speakers and electronics. The bearing in degrees is the reliable figure.'],
+    ['How do I face the Qibla without a compass?',
+     'Take the bearing shown here and line it up with a known direction. If you know where the sun rises, that is roughly east, and you can count round from there.'],
+    ['What if I cannot work out the direction?',
+     'Make your best effort and pray. A prayer offered after a sincere attempt to find the Qibla is valid, even if the direction later turns out to have been slightly off.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

@@ -156,11 +156,36 @@ function sitemapEntries(): array
 }
 
 /**
+ * The date the site's content last changed.
+ *
+ * Stamping every URL with today's date tells crawlers the whole site changed
+ * daily, which is untrue and gets the signal discounted. The newest file among
+ * the templates and bundled data is an honest answer, and it moves on deploy.
+ */
+function contentLastModified(): string
+{
+    $newest = 0;
+    foreach (['/views', '/data', '/src', '/public/assets'] as $directory) {
+        $path = dirname(__DIR__) . $directory;
+        if (!is_dir($path)) {
+            continue;
+        }
+
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+        foreach ($files as $file) {
+            $newest = max($newest, (int) $file->getMTime());
+        }
+    }
+
+    return date('Y-m-d', $newest ?: time());
+}
+
+/**
  * Emit sitemap.xml and stop.
  */
 function renderSitemap(): never
 {
-    $lastmod = date('Y-m-d');
+    $lastmod = contentLastModified();
 
     header('Content-Type: application/xml; charset=UTF-8');
     header('X-Robots-Tag: noindex');

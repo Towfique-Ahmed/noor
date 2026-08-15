@@ -32,13 +32,7 @@ $navigation = [
 <meta name="description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 <meta name="theme-color" content="#0f5132">
 <link rel="canonical" href="<?= e($canonical) ?>">
-<?php if ($currentPage === '404'): ?>
-  <meta name="robots" content="noindex, follow">
-<?php elseif ($currentPage === 'bookmarks'): ?>
-  <meta name="robots" content="noindex, follow">
-<?php else: ?>
-  <meta name="robots" content="index, follow, max-image-preview:large">
-<?php endif; ?>
+<meta name="robots" content="<?= e($robots ?? 'index, follow, max-image-preview:large') ?>">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="<?= e(config('app.name')) ?>">
@@ -46,7 +40,12 @@ $navigation = [
 <meta property="og:description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:locale" content="en">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="<?= e(absoluteUrl()) ?>assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="<?= e(config('app.name')) ?> — <?= e(config('app.tagline')) ?>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="<?= e(absoluteUrl()) ?>assets/img/og-cover.png">
 <meta name="twitter:title" content="<?= e($metaTitle ?? $pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 
@@ -62,6 +61,17 @@ $navigation = [
         'query-input' => 'required name=search_term_string',
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
+
+<?php if ($currentPage !== 'home' && $currentPage !== '404'): ?>
+<script type="application/ld+json"><?= json_encode([
+    '@context'        => 'https://schema.org',
+    '@type'           => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => absoluteUrl('home')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => $pageTitle, 'item' => $canonical],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
+<?php endif; ?>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127772;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

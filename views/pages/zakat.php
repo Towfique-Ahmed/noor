@@ -149,3 +149,22 @@ require dirname(__DIR__) . '/partials/page-header.php';
     </ul>
   </aside>
 </div>
+
+<?php
+$faqHeading = 'Zakat questions people ask';
+$faqs = [
+    ['What is the nisab for Zakat?',
+     'Nisab is the minimum wealth you must hold before Zakat is due: 87.48 grams of gold or 612.36 grams of silver, valued at today\'s price. Silver gives the lower threshold, so it brings more people into paying, and many scholars prefer it for that reason.'],
+    ['How much Zakat do I pay?',
+     'Zakat is 2.5% — one fortieth — of the net wealth you have held for one full lunar year. On 100,000 of net zakatable wealth that is 2,500.'],
+    ['Which assets are zakatable?',
+     'Cash in hand and in the bank, gold and silver, business stock and goods for sale, shares held for trade, and money owed to you that you expect to recover.'],
+    ['What is not zakatable?',
+     'The home you live in, your personal clothing and furniture, the car you drive, and tools you use to earn a living are not zakatable, however much they are worth.'],
+    ['Do I subtract my debts?',
+     'Yes. Debts and bills that are due are subtracted from your assets before the 2.5% is applied. Long-term debt spread over many years is treated differently by different scholars, so ask someone you trust.'],
+    ['When is Zakat due?',
+     'Once your net wealth has stayed at or above nisab for a full lunar year, called the hawl. Many people fix a date in Ramadan and calculate on that date every year.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>
