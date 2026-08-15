@@ -87,6 +87,15 @@ $meta            = pageMeta($slug);
 $metaTitle       = $meta['title'];
 $pageDescription = $meta['description'];
 
+// Internal search result pages are thin, endless and near-duplicate. Google
+// asks that they stay out of the index; the links on them are still followed.
+$isSearchResult = ($slug === 'quran-search' && input('q') !== '')
+    || ($slug === 'hadith' && input('q') !== '');
+
+$robots = ($slug === '404' || $slug === 'bookmarks' || $isSearchResult)
+    ? 'noindex, follow'
+    : 'index, follow, max-image-preview:large';
+
 // Render the page into a buffer first so a page can set $pageSubtitle or send
 // its own headers before the layout writes anything.
 ob_start();

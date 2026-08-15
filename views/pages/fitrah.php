@@ -90,3 +90,20 @@ require dirname(__DIR__) . '/partials/page-header.php';
     </ul>
   </aside>
 </div>
+
+<?php
+$faqHeading = 'Fitrah questions people ask';
+$faqs = [
+    ['How much is Sadaqat al-Fitr per person?',
+     'One sa\' of the staple food of your area for every person in the household. A sa\' is roughly 3.5 kg of rice, barley, dates or raisins, and about 1.75 kg of wheat or flour.'],
+    ['Who must Fitrah be paid for?',
+     'Every member of the household the head of the family supports, including children and a baby born before the Eid prayer. It is paid on their behalf whether or not they fasted.'],
+    ['When must it be given?',
+     'Before the Eid al-Fitr prayer, so it reaches those in need in time for the day itself. Giving it a day or two early is widely accepted; giving it after the prayer counts as ordinary charity.'],
+    ['Can I give money instead of food?',
+     'Many scholars permit giving the money value of the food, and most mosques collect it that way. Others hold that the food itself should be given. Both positions are well established.'],
+    ['Who receives Fitrah?',
+     'The poor and needy, so that they can eat well on the day of Eid. It can be given locally or sent where the need is greater.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

@@ -142,3 +142,20 @@ require dirname(__DIR__) . '/partials/location-form.php';
     </div>
   <?php endif; ?>
 </section>
+
+<?php
+$faqHeading = 'Prayer time questions people ask';
+$faqs = [
+    ['Why do prayer times differ between apps and mosques?',
+     'Because they use different calculation methods. Methods disagree on the sun\'s angle below the horizon that marks Fajr and Isha, which can shift those two times by several minutes. Pick the method your local mosque follows.'],
+    ['Which calculation method should I use?',
+     'Follow your local mosque. As a rough guide: Karachi in South Asia, ISNA in North America, Muslim World League across much of Europe, Umm al-Qura in Saudi Arabia and Egyptian General Authority in Egypt.'],
+    ['What is the difference between the two Asr times?',
+     'In the Hanafi school Asr begins when an object\'s shadow is twice its length; in the Shafi\'i, Maliki and Hanbali schools it begins at one length. The Hanafi time is therefore later.'],
+    ['How accurate are these times?',
+     'They are calculated from your city\'s coordinates and the method you choose, and are accurate to within a minute or two. Where your local mosque announces a different time, follow the mosque.'],
+    ['What are Imsak and Islamic midnight?',
+     'Imsak is the moment a fasting person stops eating, shortly before Fajr. Islamic midnight is the midpoint between sunset and dawn, which marks the end of the time for Isha.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>
