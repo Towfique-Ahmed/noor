@@ -147,8 +147,12 @@ $navigation = [
   </div>
   <p class="copyright">
     Prayer times, Hijri dates and Qibla data from the AlAdhan API &middot;
-    Qur'an text from AlQuran Cloud &middot;
-    &copy; <?= date('Y') ?> <?= e(config('app.name')) ?>
+    Qur'an text from AlQuran Cloud
+  </p>
+  <p class="copyright">
+    &copy; <?= date('Y') ?> <?= e(config('app.name')) ?> &middot;
+    All rights reserved by
+    <a href="<?= e(config('app.owner_url')) ?>"><?= e(config('app.owner')) ?></a>
   </p>
 </footer>
 

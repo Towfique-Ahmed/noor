@@ -26,6 +26,10 @@ $config = [
         // or in config/local.php. Requests arriving on a local hostname ignore
         // this value and use the request instead, so development stays honest.
         'url'         => getenv('NOOR_APP_URL') ?: 'https://noor.towfique.com',
+
+        // Shown in the footer copyright line.
+        'owner'       => 'towfique.com',
+        'owner_url'   => 'https://towfique.com',
     ],
 
     // Remote services. Both are free and need no API key.
