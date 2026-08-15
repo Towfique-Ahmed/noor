@@ -37,19 +37,6 @@ require dirname(__DIR__) . '/partials/page-header.php';
 </section>
 
 <section class="card">
-  <h2>Running it yourself</h2>
-  <p>Noor needs PHP 8.1 or newer. There is no database and no build step.</p>
-  <pre><code>git clone https://github.com/Towfique-Ahmed/noor.git
-cd noor
-php -S localhost:8000 -t public</code></pre>
-  <p>
-    On a normal web server, point the document root at <code>public/</code>. To change the
-    default city or calculation method, copy the values you want out of
-    <code>config/config.php</code> into <code>config/local.php</code>.
-  </p>
-</section>
-
-<section class="card">
   <h2>A note on accuracy</h2>
   <p>
     The calculators and timings here are tools, not rulings. Zakat on pensions, shares held for

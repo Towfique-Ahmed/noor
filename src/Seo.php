@@ -299,7 +299,7 @@ function pageMeta(string $slug): array
         ],
         'about' => [
             'About ' . $brand . ' — Free Islamic Companion & Tools',
-            'What Noor offers, where its prayer times, Qur\'an text and hadith come from, how the calculators work, and how to run the site on your own server.',
+            'What Noor offers, where its prayer times, Qur\'an text, tafsir and hadith come from, how the calculators work, and why local mosque announcements come first.',
         ],
         '404' => [
             'Page Not Found | ' . $brand,
