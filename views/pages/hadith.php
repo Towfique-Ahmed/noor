@@ -16,8 +16,7 @@ $sub     = 'A curated selection from the six books, with narrator and reference 
 require dirname(__DIR__) . '/partials/page-header.php';
 ?>
 
-<form class="card toolbar" method="get" action="<?= e(url('home')) ?>">
-  <input type="hidden" name="page" value="hadith">
+<form class="card toolbar" method="get" action="<?= e(url('hadith')) ?>">
   <div class="field">
     <label for="q">Search</label>
     <input id="q" name="q" type="search" value="<?= e($query) ?>" placeholder="intention, charity, patience…">

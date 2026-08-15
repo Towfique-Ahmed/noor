@@ -177,7 +177,7 @@ function contentLastModified(): string
         }
     }
 
-    return date('Y-m-d', $newest ?: time());
+    return date('c', $newest ?: time());
 }
 
 /**
@@ -220,7 +220,7 @@ function renderRobots(): never
         'Allow: /',
         '',
         '# Personal, and nothing for a crawler to index.',
-        'Disallow: ' . $basePath . '?page=bookmarks',
+        'Disallow: ' . $basePath . 'bookmarks',
         '',
         'Sitemap: ' . baseUrl() . 'sitemap.xml',
         '',

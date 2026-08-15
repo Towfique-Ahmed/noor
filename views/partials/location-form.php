@@ -9,8 +9,7 @@ defined('NOOR') || http_response_code(404) && exit;
  */
 $extra = $extra ?? [];
 ?>
-<form class="card location-form" method="get" action="<?= e(url('home')) ?>">
-  <input type="hidden" name="page" value="<?= e($formPage) ?>">
+<form class="card location-form" method="get" action="<?= e(url($formPage)) ?>">
   <?php foreach ($extra as $name => $value): ?>
     <input type="hidden" name="<?= e($name) ?>" value="<?= e($value) ?>">
   <?php endforeach; ?>

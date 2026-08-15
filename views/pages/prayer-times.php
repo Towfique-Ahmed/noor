@@ -85,8 +85,7 @@ require dirname(__DIR__) . '/partials/location-form.php';
 <section class="card">
   <header class="card-head">
     <h2>Monthly timetable</h2>
-    <form class="inline-form" method="get" action="<?= e(url('home')) ?>">
-      <input type="hidden" name="page" value="prayer-times">
+    <form class="inline-form" method="get" action="<?= e(url('prayer-times')) ?>">
       <input type="hidden" name="city" value="<?= e($location['city']) ?>">
       <input type="hidden" name="country" value="<?= e($location['country']) ?>">
       <input type="hidden" name="method" value="<?= (int) $location['method'] ?>">

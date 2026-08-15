@@ -18,6 +18,7 @@ require_once $root . '/src/Support.php';
 require_once $root . '/src/Http.php';
 require_once $root . '/src/Services.php';
 require_once $root . '/src/Calculators.php';
+require_once $root . '/src/Router.php';
 require_once $root . '/src/Seo.php';
 
 date_default_timezone_set((string) config('app.timezone', 'UTC'));
@@ -56,7 +57,18 @@ $routes = [
     'about'        => ['about',        'About'],
 ];
 
-$slug = input('page', 'home');
+// Resolve the clean path. Parameters recovered from the path are merged into
+// $_GET so the page files read them exactly as before.
+$route = resolveRequest($routes);
+
+if ($route['redirect'] !== null) {
+    header('Location: ' . $route['redirect'], true, 301);
+    exit;
+}
+
+$_GET = $route['params'] + $_GET;
+$slug = $route['page'];
+
 if (!isset($routes[$slug])) {
     http_response_code(404);
     $slug = '404';

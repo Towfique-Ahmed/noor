@@ -66,8 +66,7 @@ require dirname(__DIR__) . '/partials/page-header.php';
 
 <section class="card">
   <h2>Convert a date</h2>
-  <form class="inline-form" method="get" action="<?= e(url('home')) ?>">
-    <input type="hidden" name="page" value="calendar">
+  <form class="inline-form" method="get" action="<?= e(url('calendar')) ?>">
     <label class="sr-only" for="date">Gregorian date</label>
     <input id="date" name="date" type="date" value="<?= e($lookup ?: date('Y-m-d')) ?>">
     <button class="btn btn-sm" type="submit">Convert</button>

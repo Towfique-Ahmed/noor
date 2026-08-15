@@ -21,8 +21,7 @@ $sub     = 'The bearing you face for salah, measured clockwise from true north.'
 require dirname(__DIR__) . '/partials/page-header.php';
 ?>
 
-<form class="card location-form" method="get" action="<?= e(url('home')) ?>">
-  <input type="hidden" name="page" value="qibla">
+<form class="card location-form" method="get" action="<?= e(url('qibla')) ?>">
 
   <div class="field">
     <label for="lat">Latitude</label>
