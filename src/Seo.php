@@ -204,3 +204,190 @@ function renderRobots(): never
     echo implode("\n", $lines);
     exit;
 }
+
+/**
+ * Meta title and description for a page.
+ *
+ * Every page gets its own pair: duplicate titles and descriptions across a
+ * site are one of the commonest things Search Console flags. Titles aim for
+ * roughly 60 characters and descriptions for roughly 155, which is about what
+ * Google shows before truncating.
+ *
+ * @return array{title: string, description: string}
+ */
+function pageMeta(string $slug): array
+{
+    $brand = (string) config('app.name');
+
+    $static = [
+        'home' => [
+            $brand . ' — Prayer Times, Qur\'an, Qibla & Zakat Calculator',
+            'Free Islamic companion with accurate prayer times for any city, the full Qur\'an with tafsir and audio, Qibla direction, and Zakat and Fitrah calculators.',
+        ],
+        'prayer-times' => [
+            'Prayer Times Today — Accurate Salah Timings | ' . $brand,
+            'Accurate Fajr, Dhuhr, Asr, Maghrib and Isha times for any city, with a live countdown to the next prayer, a monthly timetable and fifteen calculation methods.',
+        ],
+        'quran' => [
+            'Read the Qur\'an Online with Tafsir & Audio | ' . $brand,
+            'Read all 114 surahs in Uthmani Arabic with translations in ten languages, tafsir from eight classical commentaries and verse-by-verse recitation. Free, no sign-up.',
+        ],
+        'quran-search' => [
+            'Search the Qur\'an by Word or Phrase | ' . $brand,
+            'Search the whole Qur\'an for any word or phrase and see every matching ayah with its reference, highlighted in your chosen English or Urdu translation.',
+        ],
+        'bookmarks' => [
+            'Your Saved Ayahs & Reading Progress | ' . $brand,
+            'The ayahs you starred while reading, kept in your browser, with a link back to the surah you last had open so you can pick up where you stopped.',
+        ],
+        'qibla' => [
+            'Qibla Direction Finder — Compass & Bearing | ' . $brand,
+            'Find the Qibla from anywhere: the exact bearing to the Kaaba in degrees, the distance in kilometres and a live compass that follows your phone as you turn.',
+        ],
+        'zakat' => [
+            'Zakat Calculator — Nisab, Gold & Silver | ' . $brand,
+            'Work out the Zakat you owe at 2.5%. Add cash, gold, silver, business stock and investments, subtract debts, and check the total against gold or silver nisab.',
+        ],
+        'fitrah' => [
+            'Fitrah Calculator — Sadaqat al-Fitr per Person | ' . $brand,
+            'Calculate Sadaqat al-Fitr for your household before Eid al-Fitr. One sa\' per person in wheat, barley, dates, raisins or rice, given in weight or in money.',
+        ],
+        'hadith' => [
+            'Hadith Collection — Search Bukhari, Muslim & More | ' . $brand,
+            'Search authentic hadith from the six books by keyword or collection. Every hadith shows its narrator, book and reference number, in Arabic and English.',
+        ],
+        'duas' => [
+            'Daily Duas with Arabic, Transliteration & Meaning | ' . $brand,
+            'Everyday supplications from the Qur\'an and Sunnah for morning, evening, prayer, food, travel, hardship and forgiveness, with Arabic, transliteration and English.',
+        ],
+        'names' => [
+            '99 Names of Allah — Asma ul Husna with Meanings | ' . $brand,
+            'All 99 names of Allah, Al-Asma ul-Husna, in Arabic with transliteration and the meaning of each name. Search by name or by meaning to find one quickly.',
+        ],
+        'calendar' => [
+            'Hijri Calendar — Islamic Date Today & Converter | ' . $brand,
+            'Today\'s Islamic date in the Hijri calendar, a Gregorian to Hijri converter, the twelve Islamic months and the dates of Ramadan, Ashura, Arafah and both Eids.',
+        ],
+        'tasbih' => [
+            'Digital Tasbih Counter — Online Dhikr Tally | ' . $brand,
+            'Count your dhikr online. SubhanAllah, Alhamdulillah, Allahu Akbar and more, with targets, completed rounds and a tally saved in your browser between visits.',
+        ],
+        'about' => [
+            'About ' . $brand . ' — Free Islamic Companion & Tools',
+            'What Noor offers, where its prayer times, Qur\'an text and hadith come from, how the calculators work, and how to run the site on your own server.',
+        ],
+        '404' => [
+            'Page Not Found | ' . $brand,
+            'That page does not exist. Head back to prayer times, the Qur\'an reader, the Qibla finder or the Zakat calculator.',
+        ],
+    ];
+
+    [$title, $description] = $static[$slug] ?? $static['home'];
+
+    return dynamicPageMeta($slug, $title, $description, $brand);
+}
+
+/**
+ * Refine the meta for pages whose content depends on a parameter, so a surah,
+ * a dua category or a search term each get their own title and description.
+ *
+ * @return array{title: string, description: string}
+ */
+function dynamicPageMeta(string $slug, string $title, string $description, string $brand): array
+{
+    if ($slug === 'quran') {
+        $number = (int) input('surah');
+        if ($number >= 1 && $number <= 114) {
+            $surah = surahName($number);
+            $title = 'Surah ' . $surah['name'] . ' (' . $surah['meaning'] . ') with Tafsir & Audio | ' . $brand;
+
+            // A few meanings are long enough to push the brand off the end.
+            // Drop the meaning rather than let the title be cut mid-suffix.
+            if (mb_strlen($title) > 70) {
+                $title = 'Surah ' . $surah['name'] . ' — Read with Tafsir & Audio | ' . $brand;
+            }
+
+            $description = 'Read Surah ' . $surah['name'] . ', chapter ' . $number . ' of the Qur\'an, in Uthmani Arabic with '
+                . 'English translation, verse-by-verse tafsir and audio recitation you can play ayah by ayah.';
+        }
+    }
+
+    if ($slug === 'quran-search') {
+        $term = input('q');
+        if ($term !== '') {
+            $title = '"' . $term . '" in the Qur\'an — Search Results | ' . $brand;
+            $description = 'Every ayah of the Qur\'an that mentions "' . $term . '", with its surah and verse reference '
+                . 'and a link straight into the reader at that verse.';
+        }
+    }
+
+    if ($slug === 'duas') {
+        $category = input('category');
+        if ($category !== '') {
+            $title = $category . ' Duas — Arabic, Transliteration & Meaning | ' . $brand;
+            $description = 'Authentic supplications for ' . strtolower($category) . ', each with the Arabic text, an easy '
+                . 'transliteration, the English meaning and the hadith or ayah it comes from.';
+        }
+    }
+
+    if ($slug === 'hadith') {
+        $collection = input('collection');
+        $term       = input('q');
+        if ($term !== '') {
+            $title = '"' . $term . '" — Hadith Search Results | ' . $brand;
+            $description = 'Hadith about ' . strtolower($term) . ' from the six books, each with its narrator, '
+                . 'book and reference number in Arabic and English.';
+        } elseif ($collection !== '') {
+            $title = $collection . ' — Search Hadith by Keyword | ' . $brand;
+            $description = 'Browse and search hadith from ' . $collection . ', each shown with its narrator, book '
+                . 'and reference number in Arabic and English.';
+        }
+    }
+
+    return [
+        'title'       => trimMeta($title, 70),
+        'description' => trimMeta($description, 165),
+    ];
+}
+
+/**
+ * The English name and meaning of a surah.
+ *
+ * Read from the bundled list rather than the API, so page titles are correct
+ * even when the network is unavailable.
+ *
+ * @return array{name: string, meaning: string}
+ */
+function surahName(int $number): array
+{
+    static $surahs = null;
+    if ($surahs === null) {
+        $surahs = [];
+        foreach (dataset('surahs') as $surah) {
+            $surahs[(int) $surah['number']] = $surah;
+        }
+    }
+
+    $found = $surahs[$number] ?? null;
+
+    return [
+        'name'    => (string) ($found['name'] ?? ('Surah ' . $number)),
+        'meaning' => (string) ($found['meaning'] ?? ''),
+    ];
+}
+
+/**
+ * Keep a meta string within its limit, cutting on a word boundary.
+ */
+function trimMeta(string $text, int $limit): string
+{
+    $text = trim(preg_replace('/\s+/u', ' ', $text) ?? $text);
+    if (mb_strlen($text) <= $limit) {
+        return $text;
+    }
+
+    $cut   = mb_substr($text, 0, $limit - 1);
+    $space = mb_strrpos($cut, ' ');
+
+    return rtrim($space !== false ? mb_substr($cut, 0, $space) : $cut, " ,.;:-") . '…';
+}

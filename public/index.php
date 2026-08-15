@@ -81,6 +81,12 @@ $canonical = $slug === '404'
     ? absoluteUrl('home')
     : canonicalUrl($slug, $canonicalParams[$slug] ?? []);
 
+// Unique title and description per page, refined by surah, category or search
+// term where the page has one.
+$meta            = pageMeta($slug);
+$metaTitle       = $meta['title'];
+$pageDescription = $meta['description'];
+
 // Render the page into a buffer first so a page can set $pageSubtitle or send
 // its own headers before the layout writes anything.
 ob_start();

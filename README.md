@@ -99,6 +99,14 @@ a development server never claims the live domain.
 To submit: in Search Console, add the property, then submit `sitemap.xml` under
 **Indexing → Sitemaps**.
 
+Every page carries its own meta title and description — duplicates across a
+site are one of the commonest things Search Console flags. Titles stay within
+70 characters and descriptions within 165, both roughly where Google truncates.
+Pages whose content depends on a parameter get their own pair too: each of the
+114 surahs, each dua category, each hadith collection and each search term.
+Surah names come from `data/surahs.json` rather than the API, so titles are
+right even when the network is down.
+
 Every page also carries a canonical link, Open Graph and Twitter card tags, and
 `WebSite` JSON-LD with a search action. The canonical URL keeps only the
 parameters that change what is shown — `?page=quran&surah=2&utm_source=x`
@@ -127,7 +135,7 @@ return [
 ```
 index.php   bootstrap for hosts that serve the repository root
 config/     configuration, plus your git-ignored local.php
-data/       bundled JSON: hadith, duas, the 99 names, verses
+data/       bundled JSON: hadith, duas, the 99 names, verses, surah names
 deploy/     sample nginx configuration
 public/     document root — front controller, CSS, JS, .htaccess
 src/        Support.php, Http.php, Services.php, Calculators.php, Seo.php

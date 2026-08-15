@@ -28,7 +28,7 @@ $navigation = [
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= e($pageTitle) ?> &middot; <?= e(config('app.name')) ?></title>
+<title><?= e($metaTitle ?? $pageTitle) ?></title>
 <meta name="description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 <meta name="theme-color" content="#0f5132">
 <link rel="canonical" href="<?= e($canonical) ?>">
@@ -42,12 +42,12 @@ $navigation = [
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="<?= e(config('app.name')) ?>">
-<meta property="og:title" content="<?= e($pageTitle) ?> · <?= e(config('app.name')) ?>">
+<meta property="og:title" content="<?= e($metaTitle ?? $pageTitle) ?>">
 <meta property="og:description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="<?= e($pageTitle) ?> · <?= e(config('app.name')) ?>">
+<meta name="twitter:title" content="<?= e($metaTitle ?? $pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription ?? config('app.description')) ?>">
 
 <script type="application/ld+json"><?= json_encode([
