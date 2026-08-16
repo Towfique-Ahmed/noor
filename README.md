@@ -135,6 +135,18 @@ parameters that change what is shown — `?page=quran&surah=2&utm_source=x`
 canonicalises to `?page=quran&surah=2` — so tracking tags do not fragment
 indexing. The bookmarks page and the 404 page are `noindex, follow`.
 
+## Analytics
+
+The Google tag (gtag.js) is emitted immediately after `<head>`, once per page,
+from `views/partials/analytics.php`.
+
+The measurement ID lives in `analytics.ga4` in `config/config.php` and can be
+overridden with the `NOOR_GA4` environment variable. Setting that variable to
+an empty string removes the tag entirely — useful for a staging site.
+
+The tag is also skipped on local and private hostnames, so a development server
+never sends hits to the property.
+
 ## Configuration
 
 `config/config.php` holds the defaults — app name, canonical URL, default city,
