@@ -32,6 +32,13 @@ $config = [
         'owner_url'   => 'https://towfique.com',
     ],
 
+    'analytics' => [
+        // Google Analytics 4 measurement ID. The tag is left out entirely when
+        // this is empty, and on local or private hostnames, so development
+        // traffic never reaches the property.
+        'ga4' => getenv('NOOR_GA4') !== false ? (string) getenv('NOOR_GA4') : 'G-8590TQFP2D',
+    ],
+
     // Remote services. Both are free and need no API key.
     'api' => [
         'aladhan'  => 'https://api.aladhan.com/v1',
