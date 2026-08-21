@@ -44,3 +44,31 @@ require dirname(__DIR__) . '/partials/page-header.php';
     something matters, ask a scholar you trust.
   </p>
 </section>
+
+<section class="card">
+  <h2>Privacy and your data</h2>
+  <p>
+    Noor does not ask you to create an account and does not collect personal information.
+    Your bookmarks, reading position and tasbih count are stored in your browser's local
+    storage — they never leave your device. The only external calls are to the AlAdhan and
+    AlQuran Cloud APIs for prayer times and Qur'an text, and responses are cached so
+    repeated visits do not generate extra requests.
+  </p>
+</section>
+
+<?php
+$faqHeading = 'About Noor — common questions';
+$faqs = [
+    ['Is Noor affiliated with any mosque or organisation?',
+     'No. Noor is an independent, open-source project. It aggregates data from public APIs (AlAdhan for prayer times and AlQuran Cloud for Qur\'an text) and ships hadith, duas and the 99 Names as bundled datasets.'],
+    ['How accurate are the prayer times?',
+     'Prayer times are calculated from your city\'s coordinates and the method you choose, and are accurate to within a minute or two. Fifteen calculation methods are available. Where your local mosque announces a different time, follow the mosque.'],
+    ['Can I use Noor offline?',
+     'Pages you have already visited will load from the browser cache on a slow or missing connection. However, prayer times and Qur\'an text require an internet connection for the initial load, as they come from external APIs.'],
+    ['Is Noor open source?',
+     'Yes. The source code is available on GitHub. It is built with plain PHP, requires no framework or database, and can be deployed on any server that runs PHP 8.1 or later.'],
+    ['Who built Noor?',
+     'Noor was built and is maintained by the team at towfique.com. Contributions and feedback are welcome through the project\'s GitHub repository.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

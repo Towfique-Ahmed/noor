@@ -61,3 +61,20 @@ require dirname(__DIR__) . '/partials/page-header.php';
     <?php endforeach; ?>
   </ul>
 </section>
+
+<?php
+$faqHeading = 'Tasbih and dhikr questions';
+$faqs = [
+    ['What is tasbih?',
+     'Tasbih is the act of glorifying Allah by repeating phrases such as SubhanAllah (Glory be to Allah), Alhamdulillah (All praise is for Allah) and Allahu Akbar (Allah is the Greatest). It is one of the simplest and most rewarding forms of dhikr (remembrance of Allah).'],
+    ['How many times should I say each dhikr after prayer?',
+     'The Prophet ﷺ taught saying SubhanAllah 33 times, Alhamdulillah 33 times and Allahu Akbar 34 times after each obligatory prayer, totalling 100. This is reported in Sahih Muslim 597.'],
+    ['What is the reward for doing tasbih?',
+     'The Prophet ﷺ said that saying SubhanAllah 33 times, Alhamdulillah 33 times and Allahu Akbar 34 times after each prayer is one of the most beloved deeds to Allah. He also said that saying SubhanAllahi wa bihamdihi 100 times a day wipes away sins even if they are like the foam of the sea (Sahih al-Bukhari 6405).'],
+    ['Is my count saved on this counter?',
+     'Yes. Your count is saved in your browser\'s local storage, so it persists between visits on the same device. It is not sent to any server or shared with anyone.'],
+    ['Can I use a digital tasbih counter instead of prayer beads?',
+     'Yes. The purpose of a counter — whether beads, fingers or a digital tool — is to help you keep an accurate count. What matters is the sincerity of the dhikr, not the counting method.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

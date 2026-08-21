@@ -9,11 +9,11 @@
 $config = [
     'app' => [
         'name'        => 'Noor',
-        'tagline'     => 'Prayer times, Qur\'an, Qibla and more',
-        'description' => 'Noor is a free Islamic companion: accurate prayer times, '
-                       . 'the full Qur\'an with translation, Qibla direction, Zakat '
-                       . 'and Fitrah calculators, hadith collections, duas and the '
-                       . 'Hijri calendar.',
+        'tagline'     => 'Prayer times, Qur\'an, Qibla & Islamic tools',
+        'description' => 'Noor is a free Islamic companion: accurate prayer times for any city, '
+                       . 'the full Qur\'an with translation and tafsir, Qibla direction, '
+                       . 'Zakat and Fitrah calculators, hadith, duas, the 99 Names of Allah '
+                       . 'and the Hijri calendar — all in one place, with no sign-up.',
         'timezone'    => 'UTC',
         'debug'       => false,
 
