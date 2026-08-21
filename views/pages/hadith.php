@@ -68,7 +68,34 @@ require dirname(__DIR__) . '/partials/page-header.php';
   </section>
 <?php endif; ?>
 
-<p class="muted">
-  Wording follows widely used English renderings. For study, check each hadith against a
-  published edition of its collection.
-</p>
+<section class="card">
+  <h2>About the hadith collections</h2>
+  <p>
+    Hadith are the recorded sayings, actions and approvals of the Prophet Muhammad ﷺ. They
+    are the second source of Islamic law after the Qur'an and cover every aspect of life —
+    from worship and morals to transactions and family matters. The most authoritative
+    collections are the &ldquo;six books&rdquo; (al-Kutub al-Sittah): Sahih al-Bukhari,
+    Sahih Muslim, Sunan Abu Dawud, Jami' at-Tirmidhi, Sunan an-Nasa'i and Sunan Ibn Majah.
+  </p>
+  <p class="muted">
+    Wording follows widely used English renderings. For study, check each hadith against a
+    published edition of its collection.
+  </p>
+</section>
+
+<?php
+$faqHeading = 'Hadith questions people ask';
+$faqs = [
+    ['What is a hadith?',
+     'A hadith is a report of what the Prophet Muhammad ﷺ said, did or silently approved. Each hadith has a chain of narrators (isnad) and a text (matn). Scholars graded them by the reliability of each narrator in the chain.'],
+    ['What does "sahih" mean?',
+     'Sahih means authentic. A sahih hadith has an unbroken chain of trustworthy narrators and a text free of hidden defects. Sahih al-Bukhari and Sahih Muslim are regarded as the two most authentic collections.'],
+    ['What are the six major hadith collections?',
+     'They are Sahih al-Bukhari, Sahih Muslim, Sunan Abu Dawud, Jami\' at-Tirmidhi, Sunan an-Nasa\'i and Sunan Ibn Majah. Together they are called al-Kutub al-Sittah (the Six Books) and form the core reference for hadith scholarship.'],
+    ['How do I search hadith on this page?',
+     'Type a keyword — such as "prayer", "charity" or "patience" — into the search box above. You can also filter by collection. Every result shows the narrator, book and reference number so you can verify it in a published edition.'],
+    ['Can I rely on the English translations here?',
+     'The English wording follows widely used renderings and is suitable for general reading. For detailed study or deriving rulings, check the Arabic original in a published edition of the collection.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

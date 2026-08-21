@@ -79,6 +79,24 @@ $tools = [
   </div>
 </section>
 
+<section class="card">
+  <h2>Your free Islamic companion</h2>
+  <p>
+    Noor brings together the tools Muslims reach for every day — all in one place, with no
+    sign-up and no ads. Look up accurate prayer times for any city in the world, then read
+    the Qur'an in Uthmani script with verse-by-verse translation, tafsir from classical
+    scholars and audio recitation from ten acclaimed reciters. When Ramadan or Eid approaches,
+    use the Zakat and Fitrah calculators to work out what you owe, and check today's date in
+    the Hijri calendar. Between prayers, count your dhikr with the digital tasbih, browse
+    authentic hadith from the six major collections, or find the right dua for any occasion.
+  </p>
+  <p>
+    Everything runs in your browser. Your bookmarks, your last reading position and your tasbih
+    count stay on your device — nothing is sent to a server. Prayer times and Qur'an text come
+    from the AlAdhan and AlQuran Cloud APIs, cached so pages load instantly even on a slow connection.
+  </p>
+</section>
+
 <section class="verse card">
   <h2>Verse of the day</h2>
   <?php $verse = dataset('verses')[date('z') % max(1, count(dataset('verses')))] ?? null; ?>
@@ -88,3 +106,20 @@ $tools = [
     <p class="muted">&mdash; <?= e($verse['reference']) ?></p>
   <?php endif; ?>
 </section>
+
+<?php
+$faqHeading = 'Questions about Noor';
+$faqs = [
+    ['What is Noor?',
+     'Noor is a free, open-source Islamic companion website that brings prayer times, the full Qur\'an with translation and tafsir, Qibla direction, Zakat and Fitrah calculators, hadith, duas, the 99 Names of Allah, the Hijri calendar and a digital tasbih counter into one place.'],
+    ['Is Noor free to use?',
+     'Yes, completely free with no sign-up, no ads and no tracking beyond basic analytics. All features work in your browser without an account.'],
+    ['Where do the prayer times come from?',
+     'Prayer times are calculated by the AlAdhan API using your city\'s coordinates and the calculation method you choose. Fifteen methods are available, including those from ISNA, the Muslim World League, Umm al-Qura and the University of Islamic Sciences, Karachi.'],
+    ['Does Noor store my personal data?',
+     'No. Your bookmarks, reading position and tasbih count are saved only in your own browser using local storage. Nothing is sent to a server or shared with anyone.'],
+    ['Which Qur\'an translations are available?',
+     'The Qur\'an reader offers translations in ten languages, including English (Sahih International), Urdu, French, Turkish and Indonesian, alongside the original Uthmani Arabic text with tafsir from eight classical commentaries.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>

@@ -42,6 +42,7 @@ $navigation = [
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="<?= e(absoluteUrl()) ?>assets/img/og-cover.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="<?= e(config('app.name')) ?> — <?= e(config('app.tagline')) ?>">
@@ -49,6 +50,7 @@ $navigation = [
 <meta name="twitter:image" content="<?= e(absoluteUrl()) ?>assets/img/og-cover.png">
 <meta name="twitter:title" content="<?= e($metaTitle ?? $pageTitle) ?>">
 <meta name="twitter:description" content="<?= e($pageDescription ?? config('app.description')) ?>">
+<meta name="twitter:site" content="@towfique">
 
 <script type="application/ld+json"><?= json_encode([
     '@context'    => 'https://schema.org',
@@ -58,7 +60,7 @@ $navigation = [
     'url'         => baseUrl(),
     'potentialAction' => [
         '@type'       => 'SearchAction',
-        'target'      => ['@type' => 'EntryPoint', 'urlTemplate' => absoluteUrl('quran-search') . '&q={search_term_string}'],
+        'target'      => ['@type' => 'EntryPoint', 'urlTemplate' => absoluteUrl('quran-search') . '?q={search_term_string}'],
         'query-input' => 'required name=search_term_string',
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>

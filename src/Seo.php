@@ -246,8 +246,8 @@ function pageMeta(string $slug): array
 
     $static = [
         'home' => [
-            $brand . ' — Prayer Times, Qur\'an, Qibla & Zakat Calculator',
-            'Free Islamic companion with accurate prayer times for any city, the full Qur\'an with tafsir and audio, Qibla direction, and Zakat and Fitrah calculators.',
+            $brand . ' — Prayer Times, Qur\'an, Qibla & Islamic Tools',
+            'Free Islamic companion with accurate prayer times for any city, the full Qur\'an with translation, tafsir and audio, Qibla finder, Zakat and Fitrah calculators, hadith, duas and more.',
         ],
         'prayer-times' => [
             'Prayer Times Today — Accurate Salah Timings | ' . $brand,
@@ -278,28 +278,28 @@ function pageMeta(string $slug): array
             'Calculate Sadaqat al-Fitr for your household before Eid al-Fitr. One sa\' per person in wheat, barley, dates, raisins or rice, given in weight or in money.',
         ],
         'hadith' => [
-            'Hadith Collection — Search Bukhari, Muslim & More | ' . $brand,
-            'Search authentic hadith from the six books by keyword or collection. Every hadith shows its narrator, book and reference number, in Arabic and English.',
+            'Hadith Collection — Bukhari, Muslim & the Six Books | ' . $brand,
+            'Search authentic hadith from Sahih al-Bukhari, Sahih Muslim and the six major collections by keyword. Each hadith shows its narrator, book and reference in Arabic and English.',
         ],
         'duas' => [
-            'Daily Duas with Arabic, Transliteration & Meaning | ' . $brand,
-            'Everyday supplications from the Qur\'an and Sunnah for morning, evening, prayer, food, travel, hardship and forgiveness, with Arabic, transliteration and English.',
+            'Daily Duas — Arabic Text, Transliteration & Meaning | ' . $brand,
+            'Authentic daily supplications (duas) from the Qur\'an and Sunnah for morning, evening, prayer, food, travel and forgiveness, with Arabic, transliteration and English meaning.',
         ],
         'names' => [
             '99 Names of Allah — Asma ul Husna with Meanings | ' . $brand,
-            'All 99 names of Allah, Al-Asma ul-Husna, in Arabic with transliteration and the meaning of each name. Search by name or by meaning to find one quickly.',
+            'The 99 Names of Allah (Al-Asma ul-Husna) in Arabic with transliteration and English meaning. Search, learn and memorise each of Allah\'s beautiful names.',
         ],
         'calendar' => [
             'Hijri Calendar — Islamic Date Today & Converter | ' . $brand,
-            'Today\'s Islamic date in the Hijri calendar, a Gregorian to Hijri converter, the twelve Islamic months and the dates of Ramadan, Ashura, Arafah and both Eids.',
+            'Today\'s Islamic (Hijri) date, a Gregorian-to-Hijri date converter, the twelve Islamic months explained, and key dates including Ramadan, Ashura, Arafah and both Eids.',
         ],
         'tasbih' => [
-            'Digital Tasbih Counter — Online Dhikr Tally | ' . $brand,
-            'Count your dhikr online. SubhanAllah, Alhamdulillah, Allahu Akbar and more, with targets, completed rounds and a tally saved in your browser between visits.',
+            'Digital Tasbih Counter — Free Online Dhikr Counter | ' . $brand,
+            'Count your dhikr online with this free tasbih counter. SubhanAllah, Alhamdulillah, Allahu Akbar and more, with targets, completed rounds and a tally saved in your browser.',
         ],
         'about' => [
-            'About ' . $brand . ' — Free Islamic Companion & Tools',
-            'What Noor offers, where its prayer times, Qur\'an text, tafsir and hadith come from, how the calculators work, and why local mosque announcements come first.',
+            'About ' . $brand . ' — Free Islamic Companion App',
+            'Learn what Noor offers, where its prayer times, Qur\'an text, tafsir and hadith data come from, how the Zakat and Fitrah calculators work, and our commitment to privacy.',
         ],
         '404' => [
             'Page Not Found | ' . $brand,

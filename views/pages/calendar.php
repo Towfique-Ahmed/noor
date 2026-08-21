@@ -109,3 +109,20 @@ require dirname(__DIR__) . '/partials/page-header.php';
     </p>
   </section>
 </div>
+
+<?php
+$faqHeading = 'Hijri calendar questions';
+$faqs = [
+    ['What is the Hijri calendar?',
+     'The Hijri (Islamic) calendar is a lunar calendar of twelve months used to determine Islamic holidays, fasting days and the Hajj. It began with the migration (Hijra) of the Prophet ﷺ from Makkah to Madinah in 622 CE.'],
+    ['How does the Hijri calendar differ from the Gregorian?',
+     'The Hijri calendar is based on the lunar cycle, making each month either 29 or 30 days. A Hijri year is about 354 days — roughly 11 days shorter than a Gregorian year — so Islamic dates shift earlier in the Gregorian calendar each year.'],
+    ['Why do Hijri dates vary by location?',
+     'Each month begins with the sighting of the new crescent moon, which can be visible in one region a day before another. That is why Ramadan and Eid may start on different days in different countries. Follow the announcement of your local mosque or authority.'],
+    ['What are the sacred months in Islam?',
+     'Four months are sacred (haram): Muharram, Rajab, Dhul Qadah and Dhul Hijjah. Fighting was traditionally forbidden during these months, and good deeds carry extra weight in them.'],
+    ['When is Ramadan in the Hijri calendar?',
+     'Ramadan is the ninth month of the Hijri calendar. Because the Islamic year is shorter than the Gregorian year, Ramadan moves roughly 11 days earlier each Gregorian year, cycling through all seasons over about 33 years.'],
+];
+require dirname(__DIR__) . '/partials/faq.php';
+?>
